@@ -17,7 +17,7 @@ module.exports = {
     const { appName } = conversation.properties();
     const { url } = conversation.properties();
 
-    if(appName && url){
+    if(appName && appName !='<not set>' &&  url && url !='<not set>'){
       request.get(url, function (error, response, body) {
           if(error){
               console.log(error);
@@ -39,7 +39,7 @@ module.exports = {
     } else {
          // reply
          conversation
-         .reply(`wrong param, app name=${appName} and url=${url}`)
+         .reply(`wrong param, app name=${appName.replace("<", "").replace(">", "")} and url=${url.replace("<", "").replace(">", "")}`)
          .transition();
          done();
     }
